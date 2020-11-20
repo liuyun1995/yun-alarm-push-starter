@@ -1,4 +1,4 @@
-package com.liuyun.github.dingding;
+package com.liuyun.github.dingtalk;
 
 import com.liuyun.github.utils.SpringBeanUtils;
 import com.liuyun.github.utils.ThreadPoolRepo;
@@ -16,7 +16,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  * @create: 2020/4/30 上午10:13
  */
 @Slf4j
-public class DingDingUtils {
+public class DingTalkPusher {
 
     public static String webhook = "";
 
