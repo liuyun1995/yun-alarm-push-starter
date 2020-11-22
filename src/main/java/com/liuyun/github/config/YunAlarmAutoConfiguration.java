@@ -1,6 +1,5 @@
 package com.liuyun.github.config;
 
-import com.liuyun.github.AlarmPusher;
 import com.liuyun.github.dingtalk.DingTalkPusher;
 import com.liuyun.github.email.EmailPusher;
 import com.liuyun.github.wechat.WeChatPusher;
@@ -40,13 +39,13 @@ public class YunAlarmAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public AlarmPusher getAlarmPusher() {
-        AlarmPusher alarmPusher = new AlarmPusher();
-        alarmPusher.setEmailPusher(getEmailPusher());
-        alarmPusher.setDingTalkPusher(getDingTalkPusher());
-        alarmPusher.setWeChatPusher(getWeChatPusher());
-        alarmPusher.setAlarmProperties(alarmProperties);
-        return alarmPusher;
+    public AlarmService getAlarmPusher() {
+        AlarmService alarmService = new AlarmService();
+        alarmService.setEmailPusher(getEmailPusher());
+        alarmService.setDingTalkPusher(getDingTalkPusher());
+        alarmService.setWeChatPusher(getWeChatPusher());
+        alarmService.setAlarmProperties(alarmProperties);
+        return alarmService;
     }
 
 }
