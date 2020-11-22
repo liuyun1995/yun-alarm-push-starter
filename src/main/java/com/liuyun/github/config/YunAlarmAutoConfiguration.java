@@ -4,46 +4,43 @@ import com.liuyun.github.AlarmPusher;
 import com.liuyun.github.dingtalk.DingTalkPusher;
 import com.liuyun.github.email.EmailPusher;
 import com.liuyun.github.wechat.WeChatPusher;
-import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.MailSender;
 
 @Configuration
 @EnableConfigurationProperties(AlarmProperties.class)
 public class YunAlarmAutoConfiguration {
 
-    @Resource
+    @Autowired
     private AlarmProperties alarmProperties;
+    @Autowired
+    private MailSender mailSender;
 
     @Bean
     @ConditionalOnMissingBean
-    private EmailPusher getEmailPusher() {
-        EmailPusher emailPusher = new EmailPusher();
-        emailPusher.setEmailProperties(alarmProperties.getEmail());
-        return emailPusher;
+    public EmailPusher getEmailPusher() {
+        return new EmailPusher(alarmProperties.getEmail(), mailSender);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    private DingTalkPusher getDingTalkPusher() {
-        DingTalkPusher dingTalkPusher = new DingTalkPusher();
-        dingTalkPusher.setDingTalkProperties(alarmProperties.getDingTalk());
-        return dingTalkPusher;
+    public DingTalkPusher getDingTalkPusher() {
+        return new DingTalkPusher(alarmProperties.getDingTalk());
     }
 
     @Bean
     @ConditionalOnMissingBean
-    private WeChatPusher getWeChatPusher() {
-        WeChatPusher weChatPusher = new WeChatPusher();
-        weChatPusher.setWeChatProperties(alarmProperties.getWeChat());
-        return weChatPusher;
+    public WeChatPusher getWeChatPusher() {
+        return new WeChatPusher(alarmProperties.getWeChat());
     }
 
     @Bean
     @ConditionalOnMissingBean
-    private AlarmPusher getAlarmPusher() {
+    public AlarmPusher getAlarmPusher() {
         AlarmPusher alarmPusher = new AlarmPusher();
         alarmPusher.setEmailPusher(getEmailPusher());
         alarmPusher.setDingTalkPusher(getDingTalkPusher());

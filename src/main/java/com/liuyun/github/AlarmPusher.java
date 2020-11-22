@@ -7,19 +7,14 @@ import com.liuyun.github.utils.ErrorContext;
 import com.liuyun.github.wechat.WeChatPusher;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
 @Slf4j
 public class AlarmPusher {
 
-    @Autowired
     private EmailPusher emailPusher;
-    @Autowired
     private DingTalkPusher dingTalkPusher;
-    @Autowired
     private WeChatPusher weChatPusher;
-
     private AlarmProperties alarmProperties;
 
     /**

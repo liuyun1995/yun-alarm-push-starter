@@ -1,14 +1,14 @@
 package com.liuyun.github.utils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.core.env.Environment;
 
 @Data
 @Slf4j
@@ -65,7 +65,13 @@ public class ErrorContext {
 	 * @return
 	 */
 	private static String getEnvironment() {
-		return "";
+		try {
+			Environment env = SpringBeanUtils.getBean(Environment.class);
+			return env.getProperty("spring.profiles.active", "Unknow Environment");
+		} catch (Exception e) {
+			log.error("获取环境失败", e);
+			return "Unknow Environment";
+		}
 	}
 
 	/**
@@ -74,12 +80,11 @@ public class ErrorContext {
 	 */
 	private static String getProjectName() {
 		try{
-			Properties prop = new Properties();
-			prop.load(ErrorContext.class.getResourceAsStream("/META-INF/app.properties"));
-			return prop.getProperty("app.name");
+			Environment env = SpringBeanUtils.getBean(Environment.class);
+			return env.getProperty("spring.application.name", "Unknow Project");
 		} catch (Exception e) {
 			log.error("获取项目名失败", e);
-			return null;
+			return "Unknow Project";
 		}
 	}
 
@@ -155,7 +160,7 @@ public class ErrorContext {
 			if (this.object != null) {
 				description.append(LINE_SEPARATOR);
 				description.append("### 涉及对象: ");
-				description.append(JSONObject.toJSONString(object));
+				description.append(new ObjectMapper().writeValueAsString(object));
 			}
 			if (this.cause != null) {
 				description.append(LINE_SEPARATOR);
