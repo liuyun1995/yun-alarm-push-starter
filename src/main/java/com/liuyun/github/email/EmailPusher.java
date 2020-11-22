@@ -1,12 +1,13 @@
 package com.liuyun.github.email;
 
+import com.liuyun.github.config.AlarmPusher;
 import com.liuyun.github.utils.ErrorContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
 @Slf4j
-public class EmailPusher {
+public class EmailPusher implements AlarmPusher {
 
     private EmailProperties emailProperties;
     private MailSender mailSender;
@@ -16,6 +17,7 @@ public class EmailPusher {
         this.mailSender = mailSender;
     }
 
+    @Override
     public void push(ErrorContext errorContext) {
         if(emailProperties == null) { return; }
         SimpleMailMessage message = new SimpleMailMessage();

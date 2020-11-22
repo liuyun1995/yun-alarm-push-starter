@@ -1,10 +1,8 @@
-package com.liuyun.github;
+package com.liuyun.github.utils;
 
 import com.liuyun.github.config.AlarmService;
-import com.liuyun.github.utils.ErrorContext;
-import com.liuyun.github.utils.SpringBeanUtils;
 
-public class AlarmPusher {
+public class AlarmHelper {
 
     private static AlarmService alarmService;
 

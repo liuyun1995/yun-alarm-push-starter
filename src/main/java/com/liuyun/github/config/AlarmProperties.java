@@ -8,8 +8,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 @Data
-@ConfigurationProperties(prefix = "yun.alarm")
+@ConfigurationProperties(prefix = AlarmProperties.PREFIX)
 public class AlarmProperties {
+
+    public static final String PREFIX = "yun.alarm";
+
+    /** 是否开启 */
+    private Boolean enable = false;
 
     /** 推送周期(毫秒) */
     private long period;
