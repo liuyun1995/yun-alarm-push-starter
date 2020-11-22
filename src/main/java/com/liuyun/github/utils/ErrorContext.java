@@ -10,10 +10,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
-/**
- * @Author: liuyun
- * @Date: 2019/2/19 下午5:09
- */
 @Data
 @Slf4j
 public class ErrorContext {
@@ -69,7 +65,7 @@ public class ErrorContext {
 	 * @return
 	 */
 	private static String getEnvironment() {
-		return EnvUtils.getEnvironment();
+		return "";
 	}
 
 	/**
