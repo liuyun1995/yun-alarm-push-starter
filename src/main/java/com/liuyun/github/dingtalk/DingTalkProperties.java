@@ -15,4 +15,7 @@ public class DingTalkProperties {
     /** 接收者列表 */
     private List<String> receivers;
 
+    /** 消息类型 TEXT, MARKDOWN */
+    private String msgType;
+
 }

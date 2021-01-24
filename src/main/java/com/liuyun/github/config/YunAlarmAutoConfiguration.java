@@ -20,11 +20,12 @@ public class YunAlarmAutoConfiguration {
 
     @Autowired
     private AlarmProperties alarmProperties;
-    @Autowired
-    private MailSender mailSender;
+//    @Autowired
+//    private MailSender mailSender;
 
     public EmailPusher getEmailPusher() {
-        return new EmailPusher(alarmProperties.getEmail(), mailSender);
+//        return new EmailPusher(alarmProperties.getEmail(), mailSender);
+        return null;
     }
 
     public DingTalkPusher getDingTalkPusher() {
